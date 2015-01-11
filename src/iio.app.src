@@ -1,0 +1,10 @@
+{application, iio,
+ [{description, "Lumenosys Obsidian IIO application"},
+  {vsn, git},
+  {registered, []},
+  {applications, [
+		  kernel,
+                  stdlib
+                 ]},
+  {env, []}
+ ]}.
