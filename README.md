@@ -1,7 +1,7 @@
 iio
 ===
 
-**iio** is an Erlang NIF library that provides a low overhead inteface to Linux IIO (industrial-IO) driver framework devices. This NIF library was written to allow Erlang applications to efficiently read ADC data from the AD7091R-2 (12-bit 1MSps) device on the Lumenosys Robotics [BMOD][1] board. You can use this NIF libraray to easily read analog voltages and sensors using the BMOD.
+**iio** is an Erlang NIF library that provides a low overhead interface to Linux IIO (industrial-IO) driver framework devices. This NIF library was written to allow Erlang applications to efficiently read ADC data from the AD7091R-2 (12-bit 1MSps) device on the Lumenosys Robotics [BMOD][1] board. You can use this NIF library to easily read analog voltages and sensors using the BMOD.
 
 Dependencies
 ------------
