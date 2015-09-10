@@ -6,5 +6,6 @@
 		  kernel,
                   stdlib
                  ]},
+  {mod, {iio_app, []}},
   {env, []}
  ]}.
