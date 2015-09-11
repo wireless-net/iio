@@ -37,36 +37,108 @@
 %%%===================================================================
 %%% API
 %%%===================================================================
+%% @doc Initialize the IIO NIF library for a specified IIO device
+%% @end
+-spec device_init(DevName) -> Reply when
+    DevName :: string(),
+    Reply :: term().
 
 device_init(DevName) ->
     gen_server:call(?MODULE, {device_init, DevName}).
 
+%% @doc Enable the specified IIO channel for the specified IIO device
+%% @end
+-spec channel_enable(DevName, ChanName) -> Reply when
+    DevName :: string(),
+    ChanName :: string(),
+    Reply :: term().
+
 channel_enable(DevName, ChanName) ->
     gen_server:call(?MODULE, {channel_enable, DevName, ChanName}).
+
+%% @doc Disable the specified IIO channel for the specified IIO device
+%% @end
+-spec channel_disable(DevName, ChanName) -> Reply when
+    DevName :: string(),
+    ChanName :: string(),
+    Reply :: term().
 
 channel_disable(DevName, ChanName) ->
     gen_server:call(?MODULE, {channel_disable, DevName, ChanName}).
 
+%% @doc Get opaque channel handle for IO operations with the NIF library
+%% @end
+-spec channel_get_handle(DevName, ChanName) -> Reply when
+    DevName :: string(),
+    ChanName :: string(),
+    Reply :: term().
+
 channel_get_handle(DevName, ChanName) ->
     gen_server:call(?MODULE, {channel_get_handle, DevName, ChanName}).
+
+%% @doc Set NIF library internal channel circular buffer depth for specified channel
+%% @end
+-spec channel_buffer_set_length(ChannelHandle, Len) -> 'ok' | 'alloc_failed' when
+    ChannelHandle :: term(),
+    Len :: integer().
 
 channel_buffer_set_length(ChanHandle, Len) ->
     iio_nif:channel_buffer_set_length(ChanHandle, Len).
 
+%% @doc Read Len samples of data from channel specified by handle
+%% @end
+-spec channel_read(ChannelHandle, Len) -> 'buffer_not_enabled' | 'channel_not_enabled' | 'alloc_failure' | 'rx_queue_empty' | {ok, Data} | {'error', ErrType} when
+    ChannelHandle :: term(),
+    Len :: integer(),
+    Data :: binary(),
+    ErrType :: atom().
+
 channel_read(ChanHandle, Len) ->
     iio_nif:channel_read(ChanHandle, Len).
+
+%% @doc Connect specified IIO device to specified IIO trigger 
+%% @end
+-spec trigger_connect(DevName, TrigName) -> Reply when
+    DevName :: string(),
+    TrigName :: string(),
+    Reply :: term().
 
 trigger_connect(DevName, TrigName) ->
     gen_server:call(?MODULE, {trigger_connect, DevName, TrigName}).
 
+%% @doc Disconnect the specified IIO device from the current trigger
+%% @end
+-spec trigger_disconnect(DevName) -> Reply when
+    DevName :: string(),
+    Reply :: term().
+
 trigger_disconnect(DevName) ->
     gen_server:call(?MODULE, {trigger_disconnect, DevName}).
+
+%% @doc Set IIO device kernel buffer length (samples)
+%% @end
+-spec buffer_set_length(DevName, Len) -> Reply when
+    DevName :: string(),
+    Len :: integer(),
+    Reply :: term().
 
 buffer_set_length(DevName, Len) ->
     gen_server:call(?MODULE, {buffer_set_length, DevName, Len}).
 
+%% @doc Enable the IIO buffer for the specified IIO device
+%% @end
+-spec buffer_enable(DevName) -> Reply when
+    DevName :: string(),
+    Reply :: term().
+
 buffer_enable(DevName) ->
     gen_server:call(?MODULE, {buffer_enable, DevName}).
+
+%% @doc Disable the buffer for the specified IIO device
+%% @end
+-spec buffer_disable(DevName) -> Reply when
+    DevName :: string(),
+    Reply :: term().
 
 buffer_disable(DevName) ->
     gen_server:call(?MODULE, {buffer_disable, DevName}).
